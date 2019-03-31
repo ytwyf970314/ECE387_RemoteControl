@@ -1,0 +1,28 @@
+Total Cost: Arduino Uno $11, Remote Control with IR receiver $6, Servo motor$4,total cost $21
+
+
+#include <IRremote.h>      //including infrared remote header file
+
+int PIN_NUM = 9;        // the pin to connect the output pin of IR sensor 
+IRrecv irrecv(PIN_NUM);
+decode_results results;
+ 
+void setup()
+{
+  Serial.begin(9600);
+  irrecv.inputIRIn();
+}
+ 
+void loop() 
+{
+  if (irrecv.decode(&results)) 
+    {
+    int value = results.value;
+    Serial.println(" ");
+    Serial.print("Code: ");
+    Serial.println(results.value); //prints the value a a button press
+    Serial.println(" ");
+    irrecv.resume();              // Receive the next value
+    Serial.println("*****************");
+    }
+}
